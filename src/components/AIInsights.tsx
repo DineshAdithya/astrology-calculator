@@ -61,9 +61,9 @@ export function AIInsights({ planets, ascendant, birthDetails }: Props) {
   return (
     <div className="space-y-6">
       {!insight && !loading && (
-        <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed border-[#ff4e00]/20 rounded-3xl bg-black/20 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-[#ff4e00]/10 flex items-center justify-center">
-            <BrainCircuit className="w-8 h-8 text-[#ff4e00]" />
+        <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed border-[#10b981]/20 rounded-3xl bg-black/20 text-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-[#10b981]/10 flex items-center justify-center">
+            <BrainCircuit className="w-8 h-8 text-[#10b981]" />
           </div>
           <div className="space-y-2">
             <h3 className="text-xl font-medium text-white">AI Astrological Analysis</h3>
@@ -73,7 +73,7 @@ export function AIInsights({ planets, ascendant, birthDetails }: Props) {
           </div>
           <Button 
             onClick={generateInsight} 
-            className="bg-[#ff4e00] hover:bg-[#e64600] text-white px-8 py-6 rounded-xl shadow-lg shadow-[#ff4e00]/20"
+            className="bg-[#10b981] hover:bg-[#059669] text-white px-8 py-6 rounded-xl shadow-lg shadow-[#10b981]/20 cursor-pointer"
           >
             <Sparkles className="w-4 h-4 mr-2" /> Generate My Insights
           </Button>
@@ -82,7 +82,7 @@ export function AIInsights({ planets, ascendant, birthDetails }: Props) {
 
       {loading && (
         <div className="flex flex-col items-center justify-center p-20 space-y-4">
-          <Loader2 className="w-10 h-10 text-[#ff4e00] animate-spin" />
+          <Loader2 className="w-10 h-10 text-[#10b981] animate-spin" />
           <p className="text-[#e0d8d0]/60 animate-pulse">Consulting the stars...</p>
         </div>
       )}
@@ -97,14 +97,14 @@ export function AIInsights({ planets, ascendant, birthDetails }: Props) {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <MessageSquareText className="w-5 h-5 text-[#ff4e00]" />
+              <MessageSquareText className="w-5 h-5 text-[#10b981]" />
               <h3 className="text-lg font-medium text-white">Your Cosmic Reading</h3>
             </div>
             <Button 
               variant="outline" 
               onClick={generateInsight} 
               disabled={loading}
-              className="text-xs border-[#e0d8d0]/10 hover:bg-[#ff4e00]/10"
+              className="text-xs border-[#e0d8d0]/10 hover:bg-[#10b981]/10 cursor-pointer"
             >
               {loading ? "Regenerating..." : "Regenerate"}
             </Button>

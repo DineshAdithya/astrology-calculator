@@ -27,10 +27,10 @@ export function DasaTable({ dasas }: Props) {
     : path[path.length - 1].subPeriods || [];
 
   const getTitle = () => {
-    if (path.length === 0) return "விம்ஷோதரி தசை";
-    if (path.length === 1) return "விம்ஷோதரி புத்தி";
-    if (path.length === 2) return "விம்ஷோதரி அந்தரம்";
-    return "விம்ஷோதரி சூட்சமம்";
+    if (path.length === 0) return "விம்ஷோதரி தசை (Mahadasa)";
+    if (path.length === 1) return "விம்ஷோதரி புத்தி (Bhukti)";
+    if (path.length === 2) return "விம்ஷோதரி அந்தரம் (Antara)";
+    return "விம்ஷோதரி சூட்சமம் (Prana)";
   };
 
   const getLabel = (dasa: DasaPeriod) => {
@@ -49,23 +49,23 @@ export function DasaTable({ dasas }: Props) {
   };
 
   return (
-    <div className="bg-white text-black min-h-[500px] flex flex-col shadow-inner rounded-xl overflow-hidden border border-gray-200">
-      <div className="p-6 text-center border-b border-gray-100 bg-gray-50/30">
-        <h2 className="text-xl font-bold text-gray-800 tracking-wide">{getTitle()}</h2>
+    <div className="bg-[#0b1c0e]/80 text-[#e0d8d0] min-h-[500px] flex flex-col shadow-2xl rounded-xl overflow-hidden border border-[#144b25] backdrop-blur-md">
+      <div className="p-6 text-center border-b border-[#144b25] bg-black/40">
+        <h2 className="text-2xl font-black text-white tracking-wide">{getTitle()}</h2>
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-[#144b25]/30">
           {currentList.map((dasa, i) => (
             <div 
               key={`${dasa.lord}-${i}`}
               onClick={() => handleRowClick(dasa)}
-              className="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer transition-colors"
+              className="flex items-center justify-between p-6 hover:bg-[#10b981]/10 cursor-pointer transition-colors"
             >
-              <span className="text-lg font-bold text-gray-900">
+              <span className="text-xl md:text-2xl font-black text-white">
                 {getLabel(dasa)}
               </span>
-              <span className="text-lg font-medium text-gray-700 font-mono">
+              <span className="text-xl md:text-2xl font-black text-emerald-400 font-mono">
                 {format(dasa.end, "dd/MM/yyyy")}
               </span>
             </div>
@@ -73,23 +73,24 @@ export function DasaTable({ dasas }: Props) {
         </div>
       </div>
 
-      <div className="p-6 space-y-6 border-t border-gray-100 bg-gray-50/50">
+      <div className="p-6 space-y-6 border-t border-[#144b25] bg-black/20">
         {path.length > 0 && (
           <Button 
             onClick={handleBack}
-            className="w-full bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold py-6 rounded-lg text-lg shadow-md transition-all active:scale-95"
+            className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-black py-7 rounded-lg text-xl shadow-md transition-all active:scale-95 cursor-pointer"
           >
-            பின் செல்லவும்
+            பின் செல்லவும் (Go Back)
           </Button>
         )}
 
-        <div className="text-sm text-gray-600 leading-relaxed font-medium">
+        <div className="text-sm md:text-base text-[#e0d8d0]/65 leading-relaxed font-medium">
           <p className="mb-1">
-            <span className="font-bold">குறிப்பு:-</span> தரப்பட்ட தேதிகள் தசா முடியும் தேதிகளாகும்.
+            <span className="font-bold text-[#10b981]">Note:</span> The dates listed are the end dates of each period.
           </p>
-          <p>அந்தர்தாஷாவைக் காட்ட எந்த வரிசையையும் தட்டவும்.</p>
+          <p>Tap any row to view its sub-periods (Bhukti, Antara).</p>
         </div>
       </div>
     </div>
   );
 }
+

@@ -1,6 +1,5 @@
 import { PlanetPosition, HouseCusp } from '../lib/astrology';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -11,9 +10,7 @@ interface Props {
   type: 'north' | 'south';
 }
 
-export function KundliChart({ title, planets, ascendant, houses = [], type }: Props) {
-  const ascRashi = Math.floor(ascendant / 30) + 1;
-
+export function KundliChart({ title, planets, ascendant, houses = [] }: Props) {
   const renderSouthIndian = () => {
     // South Indian chart uses signs fixed in position, houses rotate
     // Signs start from Aries (top row, second from left) clockwise
@@ -69,40 +66,37 @@ export function KundliChart({ title, planets, ascendant, houses = [], type }: Pr
     });
 
     return (
-      <div className="grid grid-cols-4 gap-0 aspect-square w-full border-4 border-[#eab308] bg-white shadow-xl">
+      <div className="grid grid-cols-4 gap-0 aspect-square w-full border-4 border-[#10b981] bg-[#020d04] shadow-2xl rounded-lg overflow-hidden">
         {signs.map((sign, i) => (
           <div 
             key={i} 
             className={cn(
-              "border border-[#eab308] flex flex-col items-center justify-start p-2 min-h-[140px] relative transition-colors hover:bg-yellow-50",
-              sign === null ? "bg-white border-none" : "bg-white"
+              "border border-[#14532d]/40 flex flex-col items-center justify-start p-2.5 md:p-4 min-h-[120px] md:min-h-[170px] relative transition-colors hover:bg-[#10b981]/5",
+              sign === null ? "bg-[#041609]/40 border-[#14532d]/20" : "bg-[#020e04]"
             )}
           >
             {sign !== null && (
-              <>
-                <div className="flex flex-col items-start gap-1 w-full overflow-y-auto scrollbar-hide">
-                  {rashiItems[sign]?.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between w-full px-1">
-                      <span className={cn(
-                        "text-[16px] font-black",
-                        item.type === 'house' ? "text-blue-800" :
-                        item.name === "Sun" ? "text-red-600" : 
-                        item.name === "Jupiter" || item.name === "Saturn" ? "text-blue-700" : 
-                        item.name === "Mars" ? "text-orange-600" :
-                        "text-black"
-                      )}>
-                        {item.type === 'house' ? item.name : (planetTamil[item.name] || item.name.substring(0, 2))}
-                      </span>
-                      <span className="text-[14px] text-gray-500 font-mono font-bold">
-                        {formatDegree(item.degree)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </>
+              <div className="flex flex-col items-start gap-2 w-full h-full overflow-y-auto scrollbar-hide">
+                {rashiItems[sign]?.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between w-full px-0.5 gap-2">
+                    <span className={cn(
+                      "text-lg md:text-2xl font-black tracking-tight",
+                      item.type === 'house' ? "text-emerald-400/90 font-serif text-base md:text-xl" :
+                      item.name === "Sun" ? "text-amber-400" : 
+                      item.name === "Jupiter" || item.name === "Venus" ? "text-emerald-300" : 
+                      item.name === "Mars" ? "text-red-400" :
+                      item.name === "Moon" ? "text-zinc-200" :
+                      "text-[#e0d8d0]"
+                    )}>
+                      {item.type === 'house' ? item.name : (planetTamil[item.name] || item.name.substring(0, 2))}
+                    </span>
+                    <span className="text-xs md:text-sm text-zinc-400 font-mono font-black">
+                      {formatDegree(item.degree)}
+                    </span>
+                  </div>
+                ))}
+              </div>
             )}
-            
-            {/* Center portion is empty */}
           </div>
         ))}
       </div>
@@ -110,13 +104,14 @@ export function KundliChart({ title, planets, ascendant, houses = [], type }: Pr
   };
 
   return (
-    <Card className="bg-white border-gray-200 shadow-2xl overflow-hidden">
-      <CardHeader className="pb-4 bg-gray-50 border-b">
-        <CardTitle className="text-lg font-bold text-black uppercase tracking-widest text-center">{title}</CardTitle>
+    <Card className="bg-[#0b1c0e]/80 border-[#144b25] backdrop-blur-md shadow-2xl overflow-hidden rounded-xl">
+      <CardHeader className="pb-4 bg-black/40 border-b border-[#144b25]">
+        <CardTitle className="text-base md:text-lg font-black text-white uppercase tracking-widest text-center">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="p-4 md:p-6 flex items-center justify-center">
         {renderSouthIndian()}
       </CardContent>
     </Card>
   );
 }
+

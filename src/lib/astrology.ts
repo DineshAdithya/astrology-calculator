@@ -62,16 +62,16 @@ export interface BirthDetails {
   timezone: number; // Offset in hours
 }
 
-// KP New Ayanamsa calculation (matches modern KP software like Astrosage better)
+// Chitrapaksha Lahiri Ayanamsa calculation (standard used in Astrowonder and Swiss Ephemeris)
 export function getAyanamsa(date: Date): number {
-  const year = date.getUTCFullYear();
-  const startOf2000 = new Date(Date.UTC(2000, 0, 1, 12, 0, 0)).getTime();
-  const t = (date.getTime() - startOf2000) / (1000 * 60 * 60 * 24 * 365.242199);
+  const time = MakeTime(date);
+  const t = time.tt / 36525.0; // Julian centuries since J2000.0 (TT)
   
-  // KP New Ayanamsa (Khullar)
-  // Value at 2000.0 is 23° 51' 11" = 23.853055
-  // Annual motion is 50.238"
-  return 23.853055 + t * (50.238 / 3600);
+  // IAU 1976 Precession in Longitude (Lieske 1979) - standard used in Swiss Ephemeris
+  const precessionArcseconds = 5029.0966 * t + 1.11161 * t * t - 0.000113 * t * t * t;
+  
+  // Chitrapaksha Lahiri Ayanamsha value at J2000.0 in Swiss Ephemeris is 23° 51' 11.23" = 23.85311944 degrees
+  return 23.85311944 + precessionArcseconds / 3600;
 }
 
 function getGeocentricEcliptic(body: Body, date: Date): number {
